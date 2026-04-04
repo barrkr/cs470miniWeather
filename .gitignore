@@ -13,7 +13,6 @@ serial
 parallelfor_test
 serial_test
 Makefile*
-*.txt
 *.out
 *.d
 *.ts
