@@ -3,6 +3,7 @@ module load mpi
 export TEST_MPI_COMMAND="salloc -Q -n 1 --gres=gpu mpirun"
 export PARALLEL_NETCDF_ROOT="/shared/common/pnetcdf-1.14.1"
 export LD_LIBRARY_PATH=/shared/common/pnetcdf-1.14.1/lib:$LD_LIBRARY_PATH
+export GATOR_INITIAL_MB=128
 
 cd ~/miniWeather/cpp/build
 
@@ -13,17 +14,16 @@ cmake -DCMAKE_CXX_COMPILER=mpic++         \
       -DCMAKE_Fortran_COMPILER=mpif90     \
       -DYAKL_CXX_FLAGS="-Ofast -march=native -mtune=native -DNO_INFORM -I${PARALLEL_NETCDF_ROOT}/include"   \
       -DLDFLAGS="-L${PARALLEL_NETCDF_ROOT}/lib -lpnetcdf"  \
-      -DNX=256                            \
-      -DNZ=128                            \
+      -DNX=512                            \
+      -DNZ=256                            \
       -DSIM_TIME=1000                     \
-      -DOUT_FREQ=4                        \
+      -DOUT_FREQ=10                       \
       -DDATA_SPEC=DATA_SPEC_THERMAL       \
       ..
 
 make -j $(nproc)
 
 
-salloc -Q -n 4 --gres=gpu mpirun ./parallelfor
+salloc -Q -n 16 --gres=gpu mpirun ./parallelfor
 
-
-mv output.nc exp1_output.nc
+mv output.nc output_THERMAL_16.nc

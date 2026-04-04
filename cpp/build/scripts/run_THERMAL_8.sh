@@ -24,7 +24,6 @@ cmake -DCMAKE_CXX_COMPILER=mpic++         \
 make -j $(nproc)
 
 
-salloc -Q -n 32 --gres=gpu mpirun ./parallelfor
+salloc -Q -n 8 --gres=gpu mpirun ./parallelfor
 
-mv output.nc output_THERMAL.nc
-
+mv output.nc output_THERMAL_8.nc
