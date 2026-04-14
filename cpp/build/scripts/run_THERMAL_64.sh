@@ -14,16 +14,16 @@ cmake -DCMAKE_CXX_COMPILER=mpic++         \
       -DCMAKE_Fortran_COMPILER=mpif90     \
       -DYAKL_CXX_FLAGS="-Ofast -march=native -mtune=native -DNO_INFORM -I${PARALLEL_NETCDF_ROOT}/include"   \
       -DLDFLAGS="-L${PARALLEL_NETCDF_ROOT}/lib -lpnetcdf"  \
-      -DNX=256                            \
-      -DNZ=128                            \
+      -DNX=1024                            \
+      -DNZ=512                            \
       -DSIM_TIME=1000                     \
       -DOUT_FREQ=10                       \
-      -DDATA_SPEC=DATA_SPEC_INJECTION       \
+      -DDATA_SPEC=DATA_SPEC_THERMAL       \
       ..
 
 make -j $(nproc)
 
 
-salloc -Q -n 32 --gres=gpu mpirun ./parallelfor
+salloc -Q -n 64 --gres=gpu mpirun ./parallelfor
 
-mv output.nc outputs/output_INJECTION.nc
+mv output.nc outputs/output_THERMAL.nc

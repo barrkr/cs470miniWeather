@@ -16,7 +16,7 @@ cmake -DCMAKE_CXX_COMPILER=mpic++         \
       -DLDFLAGS="-L${PARALLEL_NETCDF_ROOT}/lib -lpnetcdf"  \
       -DNX=256                            \
       -DNZ=128                            \
-      -DSIM_TIME=700                      \
+      -DSIM_TIME=1000                      \
       -DOUT_FREQ=10                       \
       -DDATA_SPEC=DATA_SPEC_COLLISION     \
       ..
@@ -26,4 +26,4 @@ make -j $(nproc)
 
 salloc -Q -n 32 mpirun ./parallelfor
 
-mv output.nc output_COLLISION.nc
+mv output.nc outputs/output_COLLISION.nc
