@@ -23,9 +23,8 @@ cmake -DCMAKE_CXX_COMPILER=mpic++         \
 
 make -j $(nproc)
 
-for d in THERMAL COLLISION INJECTION CURRENT WAVES; do
-    mkdir -p timings/$d outputs/$d
-done
+
+mkdir -p timings/THERMAL outputs/THERMAL
 
 for p in 1 2 4 8 16 32 64; do
     echo "Running with $p workers"

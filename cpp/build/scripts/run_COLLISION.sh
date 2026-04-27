@@ -23,6 +23,7 @@ cmake -DCMAKE_CXX_COMPILER=mpic++         \
 
 make -j $(nproc)
 
+mkdir -p timings/COLLISION outputs/COLLISION
 
 for p in 1 2 4 8 16 32 64; do
     echo "Running with $p workers"
