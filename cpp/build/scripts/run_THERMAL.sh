@@ -3,9 +3,9 @@ module load mpi
 export TEST_MPI_COMMAND="salloc -Q -n 1 --gres=gpu mpirun"
 export PARALLEL_NETCDF_ROOT="/shared/common/pnetcdf-1.14.1"
 export LD_LIBRARY_PATH=/shared/common/pnetcdf-1.14.1/lib:$LD_LIBRARY_PATH
-export GATOR_INITIAL_MB=128
 
-cd ~/miniWeather/cpp/build
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR/.."
 
 ./cmake_clean.sh
 
@@ -23,7 +23,14 @@ cmake -DCMAKE_CXX_COMPILER=mpic++         \
 
 make -j $(nproc)
 
+for d in THERMAL COLLISION INJECTION CURRENT WAVES; do
+    mkdir -p timings/$d outputs/$d
+done
 
-salloc -Q -n 8 --gres=gpu mpirun ./parallelfor
+for p in 1 2 4 8 16 32 64; do
+    echo "Running with $p workers"
+    salloc -Q -n $p --gres=gpu mpirun ./parallelfor | grep CPU > timings/THERMAL/THERMAL_timing_$p.txt
+    mv output.nc outputs/THERMAL/output_THERMAL_$p.nc
+done
+echo "Done"
 
-mv output.nc outputs/output_THERMAL.nc

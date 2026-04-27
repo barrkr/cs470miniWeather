@@ -25,3 +25,4 @@ mpi_test
 *.cpp
 *.mod
 *.F90*
+*timing*.txt

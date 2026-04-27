@@ -85,7 +85,7 @@ void reductions           ( realConst3d state , double &mass , double &te , Fixe
 ///////////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv) {
   MPI_Init(&argc,&argv);
-  yakl::init();
+  yakl::init( yakl::InitConfig().set_pool_initial_mb(128) );
   {
     Fixed_data fixed_data;
     real3d state;
@@ -796,7 +796,7 @@ void output( realConst3d state , real etime , int &num_out , Fixed_data const &f
     ncwrap( ncmpi_def_var( ncid , "uwnd"  , NC_DOUBLE , 3 , dimids ,  &uwnd_varid ) , __LINE__ );
     ncwrap( ncmpi_def_var( ncid , "wwnd"  , NC_DOUBLE , 3 , dimids ,  &wwnd_varid ) , __LINE__ );
     ncwrap( ncmpi_def_var( ncid , "theta" , NC_DOUBLE , 3 , dimids , &theta_varid ) , __LINE__ );
-    //End "define" mode
+    //End "define" modeF
     ncwrap( ncmpi_enddef( ncid ) , __LINE__ );
   } else {
     //Open the file
