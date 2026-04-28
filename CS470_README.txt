@@ -9,7 +9,7 @@ This script will also run the provided test suite to make sure everything is wor
 3. Now, to start gathering performance metrics, you can run the "run_[mode].sh" scripts, substituting THERMAL, COLLISION, INJECTION, COLLISION, or CURRENT for the mode.
 Our results were gathered using the THERMAL mode. The script will run the system with 1-64 nodes. The CPU time of each run will be available in the timings directory
 located in the build directory once that run has executed. The .nc output files will be available in the outputs directory, also in the build directory.
-To collect weak scaling results, you can run the script "run_THERMAL_weak.sh".
+To collect weak scaling results, you can run the script "run_THERMAL_weak.sh" or "run_COLLISION_weak.sh".
 
 4. To visualize the output you've just created, navigate to the outputs directory and download one of your "output_[mode]_[ranks].nc" files to your local machine. 
 If you're in VSCode, you can just right-click on it and click "download" to transfer it.
