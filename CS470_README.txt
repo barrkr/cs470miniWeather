@@ -6,11 +6,12 @@ Scroll down to the "Get Panoply" section and click "Download Panoply", extract t
 To build and compile the system, cd to miniWeather/cpp/build/scripts and run build.sh. 
 This script will also run the provided test suite to make sure everything is working properly.
 
-3. Now, to start gathering performance metrics, you can run the "run_THERMAL_x.sh" scripts, with "x" representing the number of MPI ranks used.
-If you run 1-16, you should be able to recreate our timing results mentioned in the table in our draft. 
-After each run, the CPU Time will be shown just under the last *** OUTPUT *** line (as you use more MPI ranks, you'll need to scroll up through more redundant output).
+3. Now, to start gathering performance metrics, you can run the "run_[mode].sh" scripts, substituting THERMAL, COLLISION, INJECTION, COLLISION, or CURRENT for the mode.
+Our results were gathered using the THERMAL mode. The script will run the system with 1-64 nodes. The CPU time of each run will be available in the timings directory
+located in the build directory once that run has executed. The .nc output files will be available in the outputs directory, also in the build directory.
+To collect weak scaling results, you can run the script "run_THERMAL_weak.sh".
 
-4. To visualize the output you've just created, navigate back to the build directory and download one of your "output_THERMAL_x.nc" files to your local machine. 
+4. To visualize the output you've just created, navigate to the outputs directory and download one of your "output_[mode]_[ranks].nc" files to your local machine. 
 If you're in VSCode, you can just right-click on it and click "download" to transfer it.
 Otherwise, you'll need to use SCP or a similar file transfer protocol to get it out of the cluster and onto your local machine.
 
